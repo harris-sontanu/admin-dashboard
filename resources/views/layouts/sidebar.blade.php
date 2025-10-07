@@ -67,11 +67,33 @@
         <!-- Layouts -->
 
         <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Articles</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-news"></i>
+                <div>News</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>List</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>Category</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Management</span>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">User</div>
             </a>
             <ul class="menu-sub">
