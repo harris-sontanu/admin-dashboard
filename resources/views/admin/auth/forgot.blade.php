@@ -6,11 +6,13 @@
     <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Login | Dashboard Admin</title>
+
+    <title>Forgot Password | Dashboard Admin</title>
+
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('admin/assets/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,6 +39,9 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/pages/page-auth.css') }}" />
     <!-- Helpers -->
     <script src="{{ asset('admin/assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('admin/assets/js/config.js') }}"></script>
 </head>
 
@@ -45,8 +50,8 @@
 
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner">
-                <!-- Register -->
+            <div class="authentication-inner py-4">
+                <!-- Forgot Password -->
                 <div class="card">
                     <div class="card-body">
                         <!-- Logo -->
@@ -100,58 +105,38 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Login</span>
+                                <span class="app-brand-text demo text-body fw-bolder">Forgot Password</span>
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Welcome to Dashboard</h4>
-
-                        <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
-                            @csrf
+                        <h4 class="mb-2">Forgot Password? 🔒</h4>
+                        <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
+                        <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email"
                                     placeholder="Enter your email" autofocus />
                             </div>
-                            <div class="mb-3 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Password</label>
-                                    <a href="{{ route('show.form.forgot') }}">
-                                        <small>Forgot Password?</small>
-                                    </a>
-                                </div>
-                                <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password"
-                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                    aria-describedby="password" />
-                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                </div>
-                            </div>
-                            <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-                            </div>
-                            @error('captcha')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror
+                            <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
                         </form>
-
+                        <div class="text-center">
+                            <a href="{{ route('show.form.login') }}"
+                                class="d-flex align-items-center justify-content-center">
+                                <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                                Back to login
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <!-- /Forgot Password -->
             </div>
         </div>
     </div>
 
+    <!-- / Content -->
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
-    <script>
-        grecaptcha.ready(function () {
-            grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', { action: 'login' }).then(function (token) {
-                document.getElementById('recaptchaResponse').value = token;
-            });
-        });
-    </script>   
     <script src="{{ asset('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/js/bootstrap.js') }}"></script>
