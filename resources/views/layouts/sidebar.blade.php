@@ -91,20 +91,20 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Management</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->is('admin/users*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">User</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="role">Role</div>
+                <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users.index') }}" class="menu-link">
+                        <div data-i18n="Notifications">List</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="" class="menu-link">
-                        <div data-i18n="Notifications">User</div>
+                        <div data-i18n="role">Role</div>
                     </a>
                 </li>
                 <li class="menu-item">

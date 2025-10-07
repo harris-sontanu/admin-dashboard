@@ -3,6 +3,7 @@
 use App\Admin\Controllers\Auth\LoginController;
 use App\Admin\Controllers\Auth\LogoutController;
 use App\Admin\Controllers\Dashboard\DashboardController;
+use App\Admin\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,5 +19,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('admin/')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
+    });
+
+    Route::prefix('admin/')->name('admin.')->group(function () {
+        Route::resource('users', UserController::class);
     });
 });
