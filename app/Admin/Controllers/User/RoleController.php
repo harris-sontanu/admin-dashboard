@@ -4,6 +4,7 @@ namespace App\Admin\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
+use App\Models\Role;
 use App\Services\PermissionService;
 use App\Services\RoleService;
 use Illuminate\Http\RedirectResponse;
@@ -40,5 +41,25 @@ class RoleController extends Controller
         return redirect()
             ->route('admin.users.roles.index')
             ->with('alert-success', 'Role created successfully');
+    }
+
+    public function edit(Role $role)
+    {
+        $permissions = $this->permissionService->options();
+
+        return view('admin.role.edit', compact(
+            'role',
+            'permissions',
+        ));
+    }
+
+    public function update(RoleRequest $request, Role $role): RedirectResponse
+    {
+        $validated = $request->validated();
+        $this->roleService->edit($role, $validated);
+
+        return redirect()
+            ->route('admin.users.roles.index')
+            ->with('alert-success', 'Role updated successfully');
     }
 }

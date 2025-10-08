@@ -36,7 +36,8 @@
                                 <td>{{ $record->permissions->implode('name', ', ') }}</td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center">
-                                        <button type="button" class="btn p-0 btn-icon text-body">
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
+                                            data-id="{{ $record->id }}" class="btn p-0 btn-icon text-body">
                                             <i class="icon-base bx bx-edit-alt icon-md"></i>
                                         </button>
                                         <button type="button" class="btn p-0 btn-icon text-warning">
@@ -57,6 +58,7 @@
 
 @push('modals')
     @include('admin.role.create')
+    @include('admin.role.modal')
 @endpush
 
 @push('scripts')

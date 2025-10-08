@@ -29,4 +29,16 @@ class RoleService
 
         return $role;
     }
+
+    public function edit(Role $role, array $data): Role
+    {
+        $this->roleRepository->update($role, $data);
+
+        $this->permissionRepository->removeAll($role);
+        foreach ($data['permissions'] as $id) {
+            $this->permissionRepository->insertById($role, $id);
+        }
+
+        return $role;
+    }
 }

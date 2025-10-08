@@ -17,4 +17,11 @@ class PermissionRepository
     {
         $role->givePermissionTo(Permission::find($id));
     }
+
+    public function removeAll(Role $role): void
+    {
+        foreach ($role->permissions as $permission) {
+            $role->revokePermissionTo($permission);
+        }
+    }
 }

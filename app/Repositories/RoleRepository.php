@@ -31,4 +31,12 @@ class RoleRepository
 
         return $role->save() ? $role : null;
     }
+
+    public function update(Role $role, array $data): ?Role
+    {
+        $role->name = $data['name'];
+        $role->description = $data['description'];
+
+        return $role->save() ? $role : null;
+    }
 }
