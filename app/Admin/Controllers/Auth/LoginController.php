@@ -44,9 +44,4 @@ class LoginController extends Controller
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
-
-    public function showForgotPasswordForm()
-    {
-        return view('admin.auth.forgot');
-    }
 }

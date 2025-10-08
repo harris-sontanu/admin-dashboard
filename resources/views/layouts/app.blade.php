@@ -47,7 +47,7 @@
 
 <body>
     @guest
-    
+
     @else
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -76,6 +76,7 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('admin/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
@@ -94,6 +95,42 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    @if (session('success'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire(
+                    'Berhasil!',
+                    '{{ session('success') }}',
+                    'success'
+                );
+            });
+        </script>
+    @endif
+    
+    @if (session('warning'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire(
+                    'Perhatian!',
+                    '{{ session('warning') }}',
+                    'warning'
+                );
+            });
+        </script>
+    @endif
+    
+    @if (session('error'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire(
+                    'Gagal!',
+                    '{{ session('error') }}',
+                    'error'
+                );
+            });
+        </script>
+    @endif
 </body>
 
 </html>

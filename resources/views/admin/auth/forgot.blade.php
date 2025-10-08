@@ -111,13 +111,14 @@
                         <!-- /Logo -->
                         <h4 class="mb-2">Forgot Password? 🔒</h4>
                         <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
-                        <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('handle.form.forgot') }}" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email"
                                     placeholder="Enter your email" autofocus />
                             </div>
-                            <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+                            <button style="submit" class="btn btn-primary d-grid w-100">Send Reset Link</button>
                         </form>
                         <div class="text-center">
                             <a href="{{ route('show.form.login') }}"
@@ -154,6 +155,45 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    @if (session('success'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire(
+                    'Berhasil!',
+                    '{{ session('success') }}',
+                    'success'
+                );
+            });
+        </script>
+    @endif
+    
+    @if (session('warning'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire(
+                    'Perhatian!',
+                    '{{ session('warning') }}',
+                    'warning'
+                );
+            });
+        </script>
+    @endif
+    
+    @if (session('error'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire(
+                    'Gagal!',
+                    '{{ session('error') }}',
+                    'error'
+                );
+            });
+        </script>
+    @endif
 </body>
 
 </html>
