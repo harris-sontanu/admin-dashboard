@@ -96,6 +96,57 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script>
+        $('.delete-data').click(function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+            var token = $(this).data("token");
+            var route = $(this).data("route");
+            Swal.fire({
+                title: 'You are sure?',
+                text: "Data will be deleted!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dab34d',
+                cancelButtonColor: '#707070',
+                confirmButtonText: 'Yes, Delete!',
+                cancelButtonText: 'Cancelled'
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "delete",
+                            url: route,
+                            data: {
+                                "id": id,
+                                "_method": 'DELETE',
+                                "_token": token,
+                            },
+                            success: function (response) {
+                                if (response.error != undefined) {
+                                    Swal.fire(
+                                        'Error!',
+                                        response.message,
+                                        'error'
+                                    )
+                                } else {
+                                    Swal.fire(
+                                        'Success!',
+                                        response.message,
+                                        'success'
+                                    )
+                                        .then((result) => {
+                                            location.reload();
+                                        });
+                                }
+
+                            }
+                        });
+                    }
+                })
+        });
+    </script>
+
     @if (session('success'))
         <script>
             $(document).ready(function () {
@@ -131,6 +182,8 @@
             });
         </script>
     @endif
+
+    @yield('js-content')
 </body>
 
 </html>

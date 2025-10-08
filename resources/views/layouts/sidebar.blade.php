@@ -57,8 +57,8 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->is('admin/dashboard') ? 'active open' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -69,19 +69,19 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Articles</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->is('admin/post*') ? 'active open' : '' }} {{ request()->is('admin/category*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>News</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{ request()->is('admin/post*') ? 'active open' : '' }}">
+                    <a href="{{ route('admin.post.index') }}" class="menu-link">
                         <div>List</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{ request()->is('admin/category*') ? 'active open' : '' }}">
+                    <a href="{{ route('admin.category.index') }}" class="menu-link">
                         <div>Category</div>
                     </a>
                 </li>
