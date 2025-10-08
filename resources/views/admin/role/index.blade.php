@@ -40,9 +40,14 @@
                                             data-id="{{ $record->id }}" class="btn p-0 btn-icon text-body">
                                             <i class="icon-base bx bx-edit-alt icon-md"></i>
                                         </button>
-                                        <button type="button" class="btn p-0 btn-icon text-warning">
-                                            <i class="icon-base bx bx-trash icon-md"></i>
-                                        </button>
+                                        <form class="deleteForm" action="{{ route('admin.users.roles.destroy', $record->id) }}"
+                                            method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn p-0 btn-icon text-danger">
+                                                <i class="icon-base bx bx-trash icon-md"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -39,4 +39,9 @@ class RoleRepository
 
         return $role->save() ? $role : null;
     }
+
+    public function delete(Role $role): void
+    {
+        $role->delete();
+    }
 }

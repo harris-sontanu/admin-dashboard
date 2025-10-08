@@ -41,4 +41,9 @@ class RoleService
 
         return $role;
     }
+
+    public function remove(Role $role): void
+    {
+        $this->roleRepository->delete($role);
+    }
 }
