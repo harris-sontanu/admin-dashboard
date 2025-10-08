@@ -102,14 +102,9 @@
                         <div data-i18n="Notifications">List</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{ request()->is('admin/users/roles') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users.roles.index') }}" class="menu-link">
                         <div data-i18n="role">Role</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="Connections">Role Access</div>
                     </a>
                 </li>
             </ul>
