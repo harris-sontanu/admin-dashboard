@@ -4,6 +4,7 @@ use App\Admin\Controllers\Auth\ForgotPasswordController;
 use App\Admin\Controllers\Auth\LoginController;
 use App\Admin\Controllers\Auth\LogoutController;
 use App\Admin\Controllers\Dashboard\DashboardController;
+use App\Admin\Controllers\User\RoleController;
 use App\Admin\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,15 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
     Route::put('reset-password', [ForgotPasswordController::class, 'updatePassword'])->name('password.update');
 });
+
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('admin/')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
+    });
+
+    Route::prefix('admin/users/')->name('admin.users.')->group(function () {
+        Route::resource('roles', RoleController::class);
     });
 
     Route::prefix('admin/')->name('admin.')->group(function () {

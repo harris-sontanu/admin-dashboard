@@ -19,7 +19,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th width="1">Nama</th>
+                            <th width="1">Name</th>
                             <th>Email</th>
                             <th>Roles</th>
                             <th>Last Logged In</th>

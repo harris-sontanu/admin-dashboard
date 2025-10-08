@@ -26,8 +26,10 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}"
+        class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
@@ -49,29 +51,31 @@
     @guest
 
     @else
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-            
-            @include('layouts.sidebar')
-            
-            <div class="layout-page">
+        <div class="layout-wrapper layout-content-navbar">
+            <div class="layout-container">
 
-                @include('layouts.navbar')
+                @include('layouts.sidebar')
 
-                <div class="content-wrapper">
+                <div class="layout-page">
 
-                    @yield('content')
+                    @include('layouts.navbar')
+
+                    <div class="content-wrapper">
+
+                        @yield('content')
+
+                    </div>
 
                 </div>
 
             </div>
 
+            <div class="layout-overlay layout-menu-toggle"></div>
+
         </div>
-
-        <div class="layout-overlay layout-menu-toggle"></div>
-
-    </div>
     @endguest
+
+    @stack('modals')
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -96,6 +100,8 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    @stack('scripts')
+
     @if (session('success'))
         <script>
             $(document).ready(function () {
@@ -107,7 +113,7 @@
             });
         </script>
     @endif
-    
+
     @if (session('warning'))
         <script>
             $(document).ready(function () {
@@ -119,7 +125,7 @@
             });
         </script>
     @endif
-    
+
     @if (session('error'))
         <script>
             $(document).ready(function () {
