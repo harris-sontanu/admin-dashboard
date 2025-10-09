@@ -23,7 +23,7 @@
                         </button>
                     </div>
                 </form>
-                <a href="{{ route('admin.post.create') }}" class="btn btn-primary">Tambah Data</a>
+                <a href="{{ route('admin.post.create') }}" class="btn btn-primary">Add Post</a>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
@@ -43,6 +43,10 @@
                                 <td>{{ $post->slug }}</td>
                                 <td class="text-center">
                                     <div class="d-inline-flex">
+                                        <a href="{{ route('admin.post.show', $post->id) }}"
+                                            class="btn p-0 btn-link">
+                                            Detail
+                                        </a>
                                         <a href="{{ route('admin.post.edit', $post->id) }}"
                                             class="btn p-0 btn-link text-body me-1">
                                             <i class="bx bx-edit-alt"></i>
@@ -57,7 +61,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" style="text-align:center;">Data Post Kosong</td>
+                                <td colspan="4" style="text-align:center;">Posting Data is Empty!</td>
                             </tr>
                         @endforelse
                     </tbody>

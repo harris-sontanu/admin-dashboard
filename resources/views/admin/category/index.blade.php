@@ -21,7 +21,7 @@
                         </button>
                     </div>
                 </form>
-                <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Tambah Data</a>
+                <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Add Category</a>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
@@ -54,7 +54,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" style="text-align:center;">Data Category Kosong</td>
+                                <td colspan="4" style="text-align:center;">Category data is empty</td>
                             </tr>
                         @endforelse
                     </tbody>

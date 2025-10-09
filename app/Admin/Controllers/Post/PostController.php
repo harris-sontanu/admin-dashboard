@@ -6,6 +6,7 @@ use App\Services\PostService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -24,7 +25,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $categories = $this->postService->formCreate();
+        $categories = $this->postService->getAllCategories();
         return view('admin.post.create', compact(
             'categories'
         ));
@@ -33,13 +34,13 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = Validator::make(request()->all(), [
-            'category' => 'required|string|max:255',
-            'title' => 'required|string|max:255|unique:posts,title',
-            'slug' => 'required|string|max:255|unique:posts,slug',
-            'body' => 'required|string|max:255',
-            'excerpt' => 'nullable|string|max:255',
+            'category'     => 'required|string|max:255',
+            'title'        => 'required|string|max:255|unique:posts,title',
+            'slug'         => 'required|string|max:255|unique:posts,slug',
+            'body'         => 'required|string|max:255',
+            'excerpt'      => 'nullable|string|max:255',
             'is_published' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validated->fails()) {
@@ -55,18 +56,53 @@ class PostController extends Controller
 
     public function edit($id)
     {
+        $categories = $this->postService->getAllCategories();
+        $post = $this->postService->formEdit($id);
         return view('admin.post.edit', compact(
-            'post'
+            'post',
+            'categories'
         ));
     }
 
     public function update(Request $request, $id)
     {
-        
+        $validated = Validator::make(request()->all(), [
+            'category'     => 'required|string|max:255',
+            'title'        => ['required', 'string', 'max:255', Rule::unique('posts', 'title')->ignore($id)],
+            'slug'         => ['required', 'string', 'max:255', Rule::unique('posts', 'slug')->ignore($id)],
+            'body'         => 'required|string|max:255',
+            'excerpt'      => 'nullable|string|max:255',
+            'is_published' => 'required',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validated->fails()) {
+            session()->flash('error', $validated->errors()->first());
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
+
+        $posts = $request->all();
+        $this->postService->updatePost($posts, $id);
+
+        session()->flash('success', 'Post Updated Successfully');
+        return redirect()->route('admin.post.index');
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        
+        $this->postService->destroyPost($id);
+        return response()->json([
+            'message' => 'Data Successfully Deleted!'
+        ]);
+    }
+
+    public function show($id)
+    {
+        $categories = $this->postService->getAllCategories();
+        $post = $this->postService->formEdit($id);
+        return view('admin.post.show', compact(
+            'post',
+            'categories'
+        ));
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 class CategoryController extends Controller
 {
@@ -58,8 +60,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validated = Validator::make(request()->all(), [
-            'name' => 'required|string|max:255|unique:categories,name',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'name' => ['required', 'string', 'max:255', Rule::unique('categories', 'name')->ignore($id)],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('categories', 'slug')->ignore($id)],
         ]);
 
         
