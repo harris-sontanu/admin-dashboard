@@ -70,7 +70,7 @@ class PostController extends Controller
             'category'     => 'required|string|max:255',
             'title'        => ['required', 'string', 'max:255', Rule::unique('posts', 'title')->ignore($id)],
             'slug'         => ['required', 'string', 'max:255', Rule::unique('posts', 'slug')->ignore($id)],
-            'body'         => 'required|string|max:255',
+            'body'         => 'required|string',
             'excerpt'      => 'nullable|string|max:255',
             'is_published' => 'required',
             'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
