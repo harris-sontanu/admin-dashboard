@@ -40,7 +40,7 @@ class RoleController extends Controller
 
         return redirect()
             ->route('admin.users.roles.index')
-            ->with('alert-success', 'Role created successfully');
+            ->with('success', 'Role created successfully');
     }
 
     public function edit(Role $role)
@@ -60,7 +60,7 @@ class RoleController extends Controller
 
         return redirect()
             ->route('admin.users.roles.index')
-            ->with('alert-success', 'Role updated successfully');
+            ->with('success', 'Role updated successfully');
     }
 
     public function destroy(Role $role): RedirectResponse
@@ -69,6 +69,6 @@ class RoleController extends Controller
 
         return redirect()
             ->route('admin.users.roles.index')
-            ->with('alert-success', 'Role deleted successfully');
+            ->with('success', 'Role deleted successfully');
     }
 }
