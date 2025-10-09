@@ -3,8 +3,11 @@
 namespace App\Admin\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Services\RoleService;
 use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,34 +15,39 @@ class UserController extends Controller
 {
     public function __construct(
         protected UserService $userService,
+        protected RoleService $roleService,
     ) {}
 
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = $this->userService->listUsers();
+        $filters = [];
+        if ($request->get('search')) {
+            $filters['search'] = $request->input('search');
+        }
+
+        $users = $this->userService->listUsers($filters);
+        $roles = $this->roleService->options();
 
         return view('admin.user.index', compact(
-            'users'
+            'users',
+            'roles',
         ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+        $this->userService->create($validated);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User created successfully');
     }
 
     /**

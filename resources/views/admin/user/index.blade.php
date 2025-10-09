@@ -9,10 +9,11 @@
         <div class="card">
             <div class="card-header border-bottom">
                 <div class="d-flex justify-content-between gap-4">
-                    <form action="" method="get">
-                        <input type="search" class="form-control" id="dt-search-0" placeholder="Search User">
+                    <form action="{{ route('admin.users.index') }}" method="get">
+                        <input type="search" class="form-control" name="search" placeholder="Search User" @if (Request::get('search')) value="{{ Request::get('search') }}" @endif>
                     </form>
-                    <a href="#" class="btn btn-primary">Add User</a>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary">Add
+                        User</button>
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
@@ -50,12 +51,14 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center">
-                                        <button type="button" class="btn p-0 btn-icon text-body">
-                                            <i class="icon-base bx bx-edit-alt icon-md"></i>
-                                        </button>
-                                        <button type="button" class="btn p-0 btn-icon text-warning">
-                                            <i class="icon-base bx bx-trash icon-md"></i>
-                                        </button>
+                                        <form class="deleteForm" action="{{ route('admin.users.destroy', $user->id) }}"
+                                            method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn p-0 btn-icon text-danger">
+                                                <i class="icon-base bx bx-trash icon-md"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -69,3 +72,11 @@
     </div>
 
 @endsection
+
+@push('modals')
+    @include('admin.user.create')
+@endpush
+
+@push('scripts')
+    @include('admin.user.script')
+@endpush
