@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class RoleService
 {
@@ -45,5 +46,10 @@ class RoleService
     public function remove(Role $role): void
     {
         $this->roleRepository->delete($role);
+    }
+
+    public function options(): SupportCollection
+    {
+        return $this->roleRepository->getAllOptions();
     }
 }

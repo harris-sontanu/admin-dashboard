@@ -3,10 +3,17 @@
 namespace App\Repositories;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class RoleRepository
 {
+    public function findById(int $id): ?Role
+    {
+        return Role::find($id);
+    }
+
     public function getAll(array $filters = [], ?int $limit = null): Collection
     {
         $query = Role::query();
@@ -43,5 +50,16 @@ class RoleRepository
     public function delete(Role $role): void
     {
         $role->delete();
+    }
+
+    public function getAllOptions(): SupportCollection
+    {
+        return Role::all()->pluck('name', 'id');
+    }
+
+    public function insertById(User $user, int $id): void
+    {
+        $role = $this->findById($id);
+        $user->assignRole($role);
     }
 }
