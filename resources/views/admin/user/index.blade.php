@@ -5,6 +5,8 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User /</span> List</h4>
 
+        @include('layouts.alert')
+
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <div class="card-header border-bottom">
