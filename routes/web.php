@@ -44,6 +44,19 @@ Route::group(['middleware' => 'auth'], function () {
                 ->middleware('permission:delete role');
         });
 
+        Route::controller(UserController::class)->group(function () {
+            Route::get('users', 'index')->name('users.index')
+                ->middleware(middleware: 'permission:view user');
+            Route::post('users', 'store')->name('users.store')
+                ->middleware('permission:create user');
+            Route::get('users/{user}/edit', 'edit')->name('users.edit')
+                ->middleware('permission:edit user');
+            Route::put('users/{user}', 'update')->name('users.update')
+                ->middleware('permission:edit user');
+            Route::delete('users/{user}', 'destroy')->name('users.destroy')
+                ->middleware('permission:delete user');
+        });
+
         Route::resource('users', UserController::class);
 
         // News Category

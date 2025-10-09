@@ -17,13 +17,22 @@
         </div>
         <div class="mb-3">
             <label id="permissions" for="permissions" class="form-label">Permissions</label>
-            @foreach ($permissions as $key => $value)
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $key }}"
-                        @checked($role->hasPermissionTo($key))>
-                    <label class="form-check-label"> {{ $value }} </label>
+            <div class="row">
+                @foreach ($permissions as $key => $value)
+                    @if ($loop->first)
+                        <div class="col">
+                    @elseif ($loop->iteration === $loop->count / 2 + 1)
+                            </div>
+                            <div class="col">
+                        @endif
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $key }}"
+                                @checked($role->hasPermissionTo($key))>
+                            <label class="form-check-label"> {{ $value }} </label>
+                        </div>
+                @endforeach
                 </div>
-            @endforeach
+            </div>
         </div>
     </div>
     <div class="modal-footer">

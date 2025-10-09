@@ -12,8 +12,10 @@
                     <form action="{{ route('admin.users.index') }}" method="get">
                         <input type="search" class="form-control" name="search" placeholder="Search User" @if (Request::get('search')) value="{{ Request::get('search') }}" @endif>
                     </form>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary">Add
-                        User</button>
+                    @can('create user')
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary">Add
+                            User</button>
+                    @endcan
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
@@ -51,14 +53,16 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center">
-                                        <form class="deleteForm" action="{{ route('admin.users.destroy', $user->id) }}"
-                                            method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn p-0 btn-icon text-danger">
-                                                <i class="icon-base bx bx-trash icon-md"></i>
-                                            </button>
-                                        </form>
+                                        @can('delete user')
+                                            <form class="deleteForm" action="{{ route('admin.users.destroy', $user->id) }}"
+                                                method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn p-0 btn-icon text-danger">
+                                                    <i class="icon-base bx bx-trash icon-md"></i>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

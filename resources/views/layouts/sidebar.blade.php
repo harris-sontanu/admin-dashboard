@@ -48,20 +48,26 @@
             </ul>
         </li>
 
+        @canAny(['view user', 'view role'])
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Management</span>
         </li>
+        @endcan
         <li class="menu-item {{ request()->is('admin/users*') ? 'active open' : '' }}">
+            @canAny(['view user', 'view role'])
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">User</div>
             </a>
+            @endcan
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
-                    <a href="{{ route('admin.users.index') }}" class="menu-link">
-                        <div data-i18n="Notifications">List</div>
-                    </a>
-                </li>
+                @can('view user')
+                    <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
+                        <a href="{{ route('admin.users.index') }}" class="menu-link">
+                            <div data-i18n="Notifications">List</div>
+                        </a>
+                    </li>
+                @endcan
                 @can('view role')
                     <li class="menu-item {{ request()->is('admin/users/roles') ? 'active' : '' }}">
                         <a href="{{ route('admin.users.roles.index') }}" class="menu-link">
