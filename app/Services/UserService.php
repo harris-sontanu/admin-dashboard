@@ -29,4 +29,9 @@ class UserService
 
         return $user;
     }
+
+    public function edit(User $user, array $data): User
+    {
+        return $this->userRepository->update($user, $data);
+    }
 }

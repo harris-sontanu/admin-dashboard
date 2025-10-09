@@ -17,7 +17,8 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editUser"
+                            data-id="{{ Auth::user()->id }}">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
@@ -30,7 +31,7 @@
                                     <small class="text-muted">{{ Auth::user()->email }}</small>
                                 </div>
                             </div>
-                        </a>
+                        </button>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>
@@ -47,3 +48,7 @@
         </ul>
     </div>
 </nav>
+
+@push('modals')
+    @include('admin.user.edit')
+@endpush

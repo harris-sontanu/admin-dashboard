@@ -57,8 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
                 ->middleware('permission:delete user');
         });
 
-        Route::resource('users', UserController::class);
-
         // News Category
         Route::get('category', [CategoryController::class, 'index'])->name('category.index');
         Route::get('category/create', [CategoryCOntroller::class, 'create'])->name('category.create');
