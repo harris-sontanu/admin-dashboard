@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end gap-2">
-                        <a href="{{ Route('admin.category.index') }}" class="btn btn-danger">Back</a>
+                        <a href="{{ Route('admin.post.index') }}" class="btn btn-danger">Back</a>
                         <button class="btn btn-primary">Save</button>
                     </div>
                 </form>
