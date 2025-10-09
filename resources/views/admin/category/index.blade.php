@@ -21,7 +21,9 @@
                         </button>
                     </div>
                 </form>
+                @can('create category')
                 <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Add Category</a>
+                @endcan
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
@@ -41,14 +43,18 @@
                                 <td>{{ $category->description }}</td>
                                 <td class="text-center">
                                     <div class="d-inline-flex">
+                                        @can('edit category')
                                         <a href="{{ route('admin.category.edit', $category->id) }}" class="btn p-0 btn-link text-body me-1">
                                             <i class="bx bx-edit-alt"></i>
                                         </a>
+                                        @endcan
+                                        @can('delete category')
                                         <button type="button" class="btn p-0 btn-link text-warning delete-data"
                                             data-route="{{ route('admin.category.destroy', $category->id) }}"
                                             data-token="{{ csrf_token() }}">
                                             <i class="bx bx-trash"></i>
                                         </button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

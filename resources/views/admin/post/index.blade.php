@@ -23,7 +23,9 @@
                         </button>
                     </div>
                 </form>
+                @can('create news')
                 <a href="{{ route('admin.post.create') }}" class="btn btn-primary">Add Post</a>
+                @endcan
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
@@ -44,18 +46,22 @@
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <a href="{{ route('admin.post.show', $post->id) }}"
-                                            class="btn p-0 btn-link">
-                                            Detail
+                                            class="btn p-0 btn-link text-body me-1">
+                                            <i class="fa-regular fa-eye"></i>
                                         </a>
+                                        @can('edit news')
                                         <a href="{{ route('admin.post.edit', $post->id) }}"
                                             class="btn p-0 btn-link text-body me-1">
                                             <i class="bx bx-edit-alt"></i>
                                         </a>
+                                        @endcan
+                                        @can('delete news')
                                         <button type="button" class="btn p-0 btn-link text-warning delete-data"
                                             data-route="{{ route('admin.post.destroy', $post->id) }}"
                                             data-token="{{ csrf_token() }}">
                                             <i class="bx bx-trash"></i>
                                         </button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

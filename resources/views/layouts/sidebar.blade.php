@@ -24,26 +24,33 @@
         </li>
 
         <!-- Layouts -->
-
+        @canAny(['view news', 'view category'])
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Articles</span>
         </li>
-        <li
-            class="menu-item {{ request()->is('admin/post*') ? 'active open' : '' }} {{ request()->is('admin/category*') ? 'active open' : '' }}">
+        @endcan
+
+        <li class="menu-item {{ request()->is('admin/post*') ? 'active open' : '' }} {{ request()->is('admin/category*') ? 'active open' : '' }}">
+            @canany(['view news', 'view category'])
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div>News</div>
             </a>
+            @endcan
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is('admin/post*') ? 'active open' : '' }}">
+                    @can('view news')
                     <a href="{{ route('admin.post.index') }}" class="menu-link">
                         <div>List</div>
                     </a>
+                    @endcan
                 </li>
                 <li class="menu-item {{ request()->is('admin/category*') ? 'active open' : '' }}">
+                    @can('view category')
                     <a href="{{ route('admin.category.index') }}" class="menu-link">
                         <div>Category</div>
                     </a>
+                    @endcan
                 </li>
             </ul>
         </li>
