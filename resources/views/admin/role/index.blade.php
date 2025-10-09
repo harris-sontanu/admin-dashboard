@@ -38,22 +38,24 @@
                                 <td>{{ $record->permissions->implode('name', ', ') }}</td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center">
-                                        @can('edit role')
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
-                                                data-id="{{ $record->id }}" class="btn p-0 btn-icon text-body">
-                                                <i class="icon-base bx bx-edit-alt icon-md"></i>
-                                            </button>
-                                        @endcan
-                                        @can('delete role')
-                                            <form class="deleteForm" action="{{ route('admin.users.roles.destroy', $record->id) }}"
-                                                method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn p-0 btn-icon text-danger">
-                                                    <i class="icon-base bx bx-trash icon-md"></i>
+                                        @if ($record->name !== 'Super Admin')
+                                            @can('edit role')
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
+                                                    data-id="{{ $record->id }}" class="btn p-0 btn-icon text-body">
+                                                    <i class="icon-base bx bx-edit-alt icon-md"></i>
                                                 </button>
-                                            </form>
-                                        @endcan
+                                            @endcan
+                                            @can('delete role')
+                                                <form class="deleteForm" action="{{ route('admin.users.roles.destroy', $record->id) }}"
+                                                    method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn p-0 btn-icon text-danger">
+                                                        <i class="icon-base bx bx-trash icon-md"></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

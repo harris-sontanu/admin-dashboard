@@ -8,6 +8,11 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionRepository
 {
+    public function findById(int $id): ?Permission
+    {
+        return Permission::find($id);
+    }
+
     public function getAll(): Collection
     {
         return Permission::all()->pluck('name', 'id');
@@ -15,7 +20,8 @@ class PermissionRepository
 
     public function insertById(Role $role, int $id): void
     {
-        $role->givePermissionTo(Permission::find($id));
+        $permission = $this->findById($id);
+        $role->givePermissionTo($permission);
     }
 
     public function removeAll(Role $role): void

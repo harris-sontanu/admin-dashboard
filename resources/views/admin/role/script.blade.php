@@ -76,5 +76,26 @@
             });
         })
 
+        $('.deleteForm').submit(function (e) {
+            e.preventDefault();
+
+            let form = $(this);
+
+            Swal.fire({
+                title: 'You are sure?',
+                text: "The selected role will be deleted!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dab34d',
+                cancelButtonColor: '#707070',
+                confirmButtonText: 'Yes, Delete!',
+                cancelButtonText: 'Cancelled'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.unbind('submit').submit();
+                }
+            });
+        })
+
     });
 </script>

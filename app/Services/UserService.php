@@ -34,4 +34,9 @@ class UserService
     {
         return $this->userRepository->update($user, $data);
     }
+
+    public function remove(User $user): void
+    {
+        $this->userRepository->delete($user);
+    }
 }
