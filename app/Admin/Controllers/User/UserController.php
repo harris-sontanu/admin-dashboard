@@ -51,27 +51,16 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+        $this->userService->edit($user, $validated);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User updated successfully');
     }
 
     /**

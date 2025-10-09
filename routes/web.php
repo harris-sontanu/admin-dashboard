@@ -29,12 +29,33 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
     });
 
-    Route::prefix('admin/users/')->name('admin.users.')->group(function () {
-        Route::resource('roles', RoleController::class);
-    });
-
     Route::prefix('admin/')->name('admin.')->group(function () {
-        Route::resource('users', UserController::class);
+
+        Route::controller(RoleController::class)->group(function () {
+            Route::get('users/roles', 'index')->name('users.roles.index')
+                ->middleware('permission:view role');
+            Route::post('users/roles', 'store')->name('users.roles.store')
+                ->middleware('permission:create role');
+            Route::get('users/roles/{role}/edit', 'edit')->name('users.roles.edit')
+                ->middleware('permission:edit role');
+            Route::put('users/roles/{role}', 'update')->name('users.roles.update')
+                ->middleware('permission:edit role');
+            Route::delete('users/roles/{role}', 'destroy')->name('users.roles.destroy')
+                ->middleware('permission:delete role');
+        });
+
+        Route::controller(UserController::class)->group(function () {
+            Route::get('users', 'index')->name('users.index')
+                ->middleware(middleware: 'permission:view user');
+            Route::post('users', 'store')->name('users.store')
+                ->middleware('permission:create user');
+            Route::get('users/{user}/edit', 'edit')->name('users.edit')
+                ->middleware('permission:edit user');
+            Route::put('users/{user}', 'update')->name('users.update')
+                ->middleware('permission:edit user');
+            Route::delete('users/{user}', 'destroy')->name('users.destroy')
+                ->middleware('permission:delete user');
+        });
 
         // News Category
         Route::get('category', [CategoryController::class, 'index'])->name('category.index');

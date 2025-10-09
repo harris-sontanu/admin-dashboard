@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
@@ -36,9 +37,9 @@ class UserRequest extends FormRequest
                 $rules['email'] = [
                     'required',
                     'email',
-                    Rule::unique('users', 'email')->ignore($this->route('users'))
+                    Rule::unique('users', 'email')->ignore(Auth::user()->id),
                 ];
-                $rules = Arr::except($rules, ['password']);
+                $rules = Arr::except($rules, ['password', 'roles']);
                 break;
         }
 

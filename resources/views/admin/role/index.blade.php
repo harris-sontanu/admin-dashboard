@@ -14,8 +14,10 @@
                     <form action="{{ route('admin.users.roles.index') }}" method="get">
                         <input type="search" class="form-control" name="search" placeholder="Search Role" @if (Request::get('search')) value="{{ Request::get('search') }}" @endif>
                     </form>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary">Add
-                        Role</button>
+                    @can('create role')
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#createModal" class="btn btn-primary">Add
+                            Role</button>
+                    @endcan
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
@@ -36,18 +38,22 @@
                                 <td>{{ $record->permissions->implode('name', ', ') }}</td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
-                                            data-id="{{ $record->id }}" class="btn p-0 btn-icon text-body">
-                                            <i class="icon-base bx bx-edit-alt icon-md"></i>
-                                        </button>
-                                        <form class="deleteForm" action="{{ route('admin.users.roles.destroy', $record->id) }}"
-                                            method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn p-0 btn-icon text-danger">
-                                                <i class="icon-base bx bx-trash icon-md"></i>
+                                        @can('edit role')
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
+                                                data-id="{{ $record->id }}" class="btn p-0 btn-icon text-body">
+                                                <i class="icon-base bx bx-edit-alt icon-md"></i>
                                             </button>
-                                        </form>
+                                        @endcan
+                                        @can('delete role')
+                                            <form class="deleteForm" action="{{ route('admin.users.roles.destroy', $record->id) }}"
+                                                method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn p-0 btn-icon text-danger">
+                                                    <i class="icon-base bx bx-trash icon-md"></i>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
