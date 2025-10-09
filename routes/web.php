@@ -29,11 +29,21 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
     });
 
-    Route::prefix('admin/users/')->name('admin.users.')->group(function () {
-        Route::resource('roles', RoleController::class);
-    });
-
     Route::prefix('admin/')->name('admin.')->group(function () {
+
+        Route::controller(RoleController::class)->group(function () {
+            Route::get('users/roles', 'index')->name('users.roles.index')
+                ->middleware('permission:view role');
+            Route::post('users/roles', 'store')->name('users.roles.store')
+                ->middleware('permission:create role');
+            Route::get('users/roles/{role}/edit', 'edit')->name('users.roles.edit')
+                ->middleware('permission:edit role');
+            Route::put('users/roles/{role}', 'update')->name('users.roles.update')
+                ->middleware('permission:edit role');
+            Route::delete('users/roles/{role}', 'destroy')->name('users.roles.destroy')
+                ->middleware('permission:delete role');
+        });
+
         Route::resource('users', UserController::class);
 
         // News Category
