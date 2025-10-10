@@ -32,6 +32,14 @@ class UserService
 
     public function edit(User $user, array $data): User
     {
+        if (isset($data['avatar'])) {
+            $data['avatar'] = $data['avatar']->store('avatars');
+        } else {
+            (isset($data['is_avatar_removed']) && $data['is_avatar_removed'])
+                ? $data['avatar'] = null
+                : $data['avatar'] = $user->avatar;
+        }
+
         return $this->userRepository->update($user, $data);
     }
 
