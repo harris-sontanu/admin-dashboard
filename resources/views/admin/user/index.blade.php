@@ -55,10 +55,12 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#editUserRoleModal"
-                                            data-id="{{ $user->id }}" class="btn p-0 btn-icon text-body">
-                                            <i class="icon-base bx bx-edit-alt icon-md"></i>
-                                        </button>
+                                        @can('edit user role')
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#editUserRoleModal"
+                                                data-id="{{ $user->id }}" class="btn p-0 btn-icon text-body">
+                                                <i class="icon-base bx bx-edit-alt icon-md"></i>
+                                            </button>
+                                        @endcan
                                         @can('delete user')
                                             <form class="deleteForm" action="{{ route('admin.users.destroy', $user->id) }}"
                                                 method="POST">
