@@ -80,4 +80,9 @@ class PostRepository
 
         return $post->delete();
     }
+
+    public function getBySlug($slug)
+    {
+        return Post::where('slug', $slug)->first();
+    }
 }

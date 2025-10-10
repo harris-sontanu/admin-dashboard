@@ -8,12 +8,9 @@ use App\Admin\Controllers\Dashboard\DashboardController;
 use App\Admin\Controllers\Post\PostController;
 use App\Admin\Controllers\User\RoleController;
 use App\Admin\Controllers\User\UserController;
+use App\Http\Controllers\LandingPageController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('show.form.login');
@@ -22,6 +19,11 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('forgot-password', [ForgotPasswordController::class, 'checkEmail'])->name('handle.form.forgot');
     Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
     Route::put('reset-password', [ForgotPasswordController::class, 'updatePassword'])->name('password.update');
+
+    // Landing Page
+    Route::get('/', [LandingPageController::class, 'home'])->name('home');
+    Route::get('/news', [LandingPageController::class, 'news'])->name('news');
+    Route::get('/news/{slug}', [LandingPageController::class, 'detailNews'])->name('news.detail');
 });
 
 Route::group(['middleware' => 'auth'], function () {
