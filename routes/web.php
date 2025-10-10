@@ -54,7 +54,11 @@ Route::group(['middleware' => 'auth'], function () {
                 ->middleware('permission:create user');
             Route::get('users/{user}/edit', 'edit')->name('users.edit')
                 ->middleware('permission:edit user');
+            Route::get('users/{user}/edit-role', 'editRole')->name('users.editRole')
+                ->middleware('permission:edit user');
             Route::put('users/{user}', 'update')->name('users.update')
+                ->middleware('permission:edit user');
+            Route::put('users/{user}/update-role', 'updateRole')->name('users.updateRole')
                 ->middleware('permission:edit user');
             Route::delete('users/{user}', 'destroy')->name('users.destroy')
                 ->middleware('permission:delete user');

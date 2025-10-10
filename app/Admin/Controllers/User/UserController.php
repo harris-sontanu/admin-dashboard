@@ -74,4 +74,27 @@ class UserController extends Controller
             ->route('admin.users.index')
             ->with('success', 'User deleted successfully');
     }
+
+    public function editRole(User $user): View
+    {
+        $roles = $this->roleService->options();
+
+        return view('admin.user.edit-role', compact(
+            'user',
+            'roles',
+        ));
+    }
+
+    public function updateRole(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'roles' => 'required|array|min:1',
+        ]);
+
+        $this->userService->editRole($user, $validated);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User role updated successfully');
+    }
 }

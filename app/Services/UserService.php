@@ -47,4 +47,14 @@ class UserService
     {
         $this->userRepository->delete($user);
     }
+
+    public function editRole(User $user, array $data): User
+    {
+        $this->roleRepository->removeAll($user);
+        foreach ($data['roles'] as $id) {
+            $this->roleRepository->insertById($user, $id);
+        }
+
+        return $user->refresh();
+    }
 }
