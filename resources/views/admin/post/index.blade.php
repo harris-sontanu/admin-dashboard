@@ -72,6 +72,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="p-4">
+                    {{ $posts->withQueryString()->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
         <!--/ Basic Bootstrap Table -->

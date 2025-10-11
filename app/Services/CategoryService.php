@@ -11,7 +11,7 @@ class CategoryService
         protected CategoryRepository $categoryRepository,
     ) {}
 
-    public function listCategories($search): Collection
+    public function listCategories($search)
     {
         return $this->categoryRepository->getAll($search);
     }

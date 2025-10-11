@@ -9,7 +9,7 @@ use Ramsey\Uuid\Type\Integer;
 
 class CategoryRepository
 {
-    public function getAll(?string $search = null, ?int $limit = null): Collection
+    public function getAll(?string $search = null, ?int $perPage = null)
     {
         $query = Category::query();
 
@@ -21,11 +21,9 @@ class CategoryRepository
             });
         }
 
-        $query = isset($limit)
-            ? $query->limit($limit)
-            : $query->limit(config()->get('app.pagination.per_page'));
+        $perPage = $perPage ?? config('app.pagination.per_page', 10);;
 
-        return $query->get();
+        return $query->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     public function getById(?int $id)

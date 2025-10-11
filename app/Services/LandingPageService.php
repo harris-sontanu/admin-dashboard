@@ -16,17 +16,16 @@ class LandingPageService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function viewNews()
-    {
-        $this->categoryRepository->getAll();
-        $this->postRepository->getAll();
+    public function viewNews($search = null, $perPage = null)
+{
+    $news = $this->postRepository->getAll($search, $perPage, true);
+    $categories = $this->categoryRepository->getAll();
 
-        $data = [
-            'news' => $this->postRepository->getAll(),
-            'categories' => $this->categoryRepository->getAll(),
-        ];
-        return $data;
-    }
+    return [
+        'news' => $news,
+        'categories' => $categories,
+    ];
+}
 
     public function detailNews($slug)
     {

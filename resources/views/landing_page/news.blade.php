@@ -32,46 +32,46 @@
                         <div class="container">
                             <div class="row gy-4">
                                 @foreach ($news as $new)
-                                    @if ($new->is_published == 1)
-                                        <div class="col-12">
-                                            <article>
-                                                <div class="post-img">
-                                                    <img src="{{ asset($new->image_url) }}" alt="" class="img-fluid">
-                                                </div>
-                                                <h2 class="title">
-                                                    <a href="{{ route('news.detail', $new->slug) }}">{{ $new->title }}</a>
-                                                </h2>
-                                                <div class="meta-top">
-                                                    <ul>
-                                                        @if ($new->excerpt)
-                                                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
-                                                                    href="#">{{ $new->excerpt }}</a></li>
-                                                        @endif
-                                                        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
-                                                                href="#"><time datetime="2022-01-01">{{ date('d F Y', strtotime($new->created_at)) }}</time></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="content">
-                                                    <p style="text-align:justify;">
-                                                        @if (strlen($new->body) > 200)
-                                                            {{ substr($new->body, 0, 200) }}...
-                                                        @else
-                                                            {{ $new->body }}
-                                                        @endif
-                                                    </p>
+                                    <div class="col-12">
+                                        <article>
+                                            <div class="post-img">
+                                                <img src="{{ asset($new->image_url) }}" alt="" class="img-fluid">
+                                            </div>
+                                            <h2 class="title">
+                                                <a href="{{ route('news.detail', $new->slug) }}">{{ $new->title }}</a>
+                                            </h2>
+                                            <div class="meta-top">
+                                                <ul>
+                                                    @if ($new->excerpt)
+                                                        <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                                                href="#">{{ $new->excerpt }}</a></li>
+                                                    @endif
+                                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                                            href="#"><time datetime="2022-01-01">{{ date('d F Y', strtotime($new->created_at)) }}</time></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="content">
+                                                <p style="text-align:justify;">
+                                                    @if (strlen($new->body) > 200)
+                                                        {{ substr($new->body, 0, 200) }}...
+                                                    @else
+                                                        {{ $new->body }}
+                                                    @endif
+                                                </p>
 
-                                                    <div class="read-more">
-                                                        <a href="{{ route('news.detail', $new->slug) }}">Read More</a>
-                                                    </div>
+                                                <div class="read-more">
+                                                    <a href="{{ route('news.detail', $new->slug) }}">Read More</a>
                                                 </div>
+                                            </div>
 
-                                            </article>
-                                        </div>
-                                    @endif
+                                        </article>
+                                    </div>
                                 @endforeach
+                                <div>
+                                    {{ $news->withQueryString()->links('pagination::bootstrap-5') }}
+                                </div>
 
                             </div><!-- End blog posts list -->
-
                         </div>
 
                     </section>

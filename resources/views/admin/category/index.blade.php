@@ -40,7 +40,13 @@
                             <tr>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
-                                <td>{{ $category->description }}</td>
+                                <td>
+                                    @if (strlen($category->description) > 50)
+                                        {{ substr($category->description, 0, 50) }}...
+                                    @else
+                                        {{ $category->description }}
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         @can('edit category')
@@ -65,6 +71,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{ $categories->withQueryString()->links('pagination::bootstrap-5') }}
             </div>
         </div>
         <!--/ Basic Bootstrap Table -->

@@ -10,9 +10,13 @@ use Ramsey\Uuid\Type\Integer;
 
 class PostRepository
 {
-    public function getAll(?string $search = null, ?int $limit = null): Collection
+    public function getAll(?string $search = null, ?int $perPage = null, bool $onlyPublished = false)
     {
         $query = Post::query();
+
+        if ($onlyPublished) {
+            $query->where('is_published', 1);
+        }
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
@@ -20,11 +24,9 @@ class PostRepository
             });
         }
 
-        $query = isset($limit)
-            ? $query->limit($limit)
-            : $query->limit(config()->get('app.pagination.per_page'));
+        $perPage = $perPage ?? config('app.pagination.per_page', 10);
 
-        return $query->get();
+        return $query->with('category')->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     public function getAllCategories()

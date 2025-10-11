@@ -45,7 +45,7 @@
 
             <a href="index.html" class="logo d-flex align-items-center me-auto">
                 <img src="{{ asset('badung-logo.png') }}" alt="">
-                <h1 class="sitename">Badung Jaya</h1>
+                <h1 class="sitename">Badung</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
@@ -91,10 +91,8 @@
                     <h4>Follow Us</h4>
                     <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
                     <div class="social-links d-flex">
-                        <a href=""><i class="bi bi-twitter-x"></i></a>
                         <a href=""><i class="bi bi-facebook"></i></a>
                         <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
 

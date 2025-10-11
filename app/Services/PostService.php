@@ -11,9 +11,9 @@ class PostService
         protected PostRepository $postRepository,
     ) {}
     
-    public function listPost($search): Collection
+    public function listPost($search)
     {
-        return $this->postRepository->getAll($search);
+        return $this->postRepository->getAll($search, null);
     }
 
     public function getAllCategories()

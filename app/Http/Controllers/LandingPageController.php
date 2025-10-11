@@ -17,7 +17,7 @@ class LandingPageController extends Controller
 
     public function news()
     {
-        $data = $this->landingPageService->viewNews();
+        $data = $this->landingPageService->viewNews(null, 5);
         $news = $data['news'];
         $categories = $data['categories'];
         return view('landing_page.news',compact('news', 'categories'));
