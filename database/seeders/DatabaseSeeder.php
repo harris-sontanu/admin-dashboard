@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             NewsPermissionSeeder::class,
             CategoryPermissionSeeder::class,
             DataNewsSeeder::class,
+            UserRolePermissionSeeder::class,
         ]);
     }
 }

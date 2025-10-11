@@ -17,8 +17,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editUser"
-                            data-id="{{ Auth::user()->id }}">
+                        <div class="dropdown-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
@@ -31,6 +30,16 @@
                                     <small class="text-muted">{{ Auth::user()->email }}</small>
                                 </div>
                             </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editUser"
+                            data-id="{{ Auth::user()->id }}">
+                            <i class="bx bx-user me-2"></i>
+                            <span class="align-middle">My Profile</span>
                         </button>
                     </li>
                     <li>

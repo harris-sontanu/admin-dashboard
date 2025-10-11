@@ -62,4 +62,11 @@ class RoleRepository
         $role = $this->findById($id);
         $user->assignRole($role);
     }
+
+    public function removeAll(User $user): void
+    {
+        foreach ($user->roles as $role) {
+            $user->removeRole($role);
+        }
+    }
 }

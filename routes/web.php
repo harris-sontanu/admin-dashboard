@@ -54,42 +54,46 @@ Route::group(['middleware' => 'auth'], function () {
                 ->middleware('permission:create user');
             Route::get('users/{user}/edit', 'edit')->name('users.edit')
                 ->middleware('permission:edit user');
+            Route::get('users/{user}/edit-role', 'editRole')->name('users.editRole')
+                ->middleware('permission:edit user role');
             Route::put('users/{user}', 'update')->name('users.update')
                 ->middleware('permission:edit user');
+            Route::put('users/{user}/update-role', 'updateRole')->name('users.updateRole')
+                ->middleware('permission:edit user role');
             Route::delete('users/{user}', 'destroy')->name('users.destroy')
                 ->middleware('permission:delete user');
         });
 
         // News Category
         Route::get('category', [CategoryController::class, 'index'])->name('category.index')
-        ->middleware('permission:view category');
+            ->middleware('permission:view category');
         Route::get('category/create', [CategoryCOntroller::class, 'create'])->name('category.create')
-        ->middleware('permission:create category');
+            ->middleware('permission:create category');
         Route::post('category/store', [CategoryController::class, 'store'])->name('category.store')
-        ->middleware('permission:create category');
+            ->middleware('permission:create category');
         Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit')
-        ->middleware('permission:edit category');
+            ->middleware('permission:edit category');
         Route::put('category/{id}/update', [CategoryController::class, 'update'])->name('category.update')
-        ->middleware('permission:edit category');
+            ->middleware('permission:edit category');
         Route::delete('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.destroy')
-        ->middleware('permission:delete category');
+            ->middleware('permission:delete category');
         // End News Category
 
         // Post
         Route::get('post', [PostController::class, 'index'])->name('post.index')
-        ->middleware('permission:view news');
+            ->middleware('permission:view news');
         Route::get('post/create', [PostController::class, 'create'])->name('post.create')
-        ->middleware('permission:create news');
+            ->middleware('permission:create news');
         Route::post('post/store', [PostController::class, 'store'])->name('post.store')
-        ->middleware('permission:create news');
+            ->middleware('permission:create news');
         Route::get('post/{id}/edit', [PostController::class, 'edit'])->name('post.edit')
-        ->middleware('permission:edit news');
+            ->middleware('permission:edit news');
         Route::put('post/{id}/update', [PostController::class, 'update'])->name('post.update')
-        ->middleware('permission:edit news');
+            ->middleware('permission:edit news');
         Route::delete('post/{id}/delete', [PostController::class, 'destroy'])->name('post.destroy')
-        ->middleware('permission:delete news');
+            ->middleware('permission:delete news');
         Route::get('post/{id}', [PostController::class, 'show'])->name('post.show')
-        ->middleware('permission:view news');
+            ->middleware('permission:view news');
         // End Post
     });
 });

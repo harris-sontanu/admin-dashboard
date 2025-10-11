@@ -39,6 +39,8 @@ class UserRequest extends FormRequest
                     'email',
                     Rule::unique('users', 'email')->ignore(Auth::user()->id),
                 ];
+                $rules['avatar'] = 'nullable|image|max:2048';
+                $rules['is_avatar_removed'] = 'sometimes|boolean';
                 $rules = Arr::except($rules, ['password', 'roles']);
                 break;
         }
