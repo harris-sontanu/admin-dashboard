@@ -28,7 +28,7 @@ class UserController extends Controller
             $filters['search'] = $request->input('search');
         }
 
-        $users = $this->userService->listUsers($filters);
+        $users = $this->userService->listUsers($filters, perPage: 3);
         $roles = $this->roleService->options();
 
         return view('admin.user.index', compact(

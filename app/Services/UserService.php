@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
 {
@@ -14,9 +14,9 @@ class UserService
         protected RoleRepository $roleRepository,
     ) {}
 
-    public function listUsers(array $filters = []): Collection
+    public function listUsers(array $filters = [], ?int $perPage = null): LengthAwarePaginator
     {
-        return $this->userRepository->getAll($filters);
+        return $this->userRepository->getAll($filters, $perPage);
     }
 
     public function create(array $data): User

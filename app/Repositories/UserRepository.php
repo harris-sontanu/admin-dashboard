@@ -5,10 +5,11 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository
 {
-    public function getAll(array $filters = [], ?int $limit = null): Collection
+    public function getAll(array $filters = [], ?int $perPage = null): LengthAwarePaginator
     {
         $query = User::query();
 
@@ -17,11 +18,9 @@ class UserRepository
                 ->orWhere('email', 'like', "%{$filters['search']}%");
         }
 
-        $query = isset($limit)
-            ? $query->limit($limit)
-            : $query->limit(config()->get('app.pagination.per_page'));
+        $perPage = $perPage ?? config('app.pagination.per_page', 10);
 
-        return $query->get();
+        return $query->paginate($perPage);
     }
 
     public function insert(array $data): User

@@ -76,6 +76,13 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                {{ $users->withQueryString()->links('pagination::bootstrap-5') }}
+                            <td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
