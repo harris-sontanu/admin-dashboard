@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection as SupportCollection;
 
 class RoleService
@@ -15,9 +16,9 @@ class RoleService
         protected PermissionRepository $permissionRepository,
     ) {}
 
-    public function listRoles(array $filters = []): Collection
+    public function listRoles(array $filters = [], ?int $perPage = null): LengthAwarePaginator
     {
-        return $this->roleRepository->getAll($filters);
+        return $this->roleRepository->getAll($filters, $perPage);
     }
 
     public function create(array $data): Role

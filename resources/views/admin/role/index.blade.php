@@ -61,6 +61,15 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    @if ($roles->hasPages())
+                        <tfoot>
+                            <tr>
+                                <td colspan="100">
+                                    {{ $roles->withQueryString()->links('pagination::bootstrap-5') }}
+                                <td>
+                            </tr>
+                        </tfoot>
+                    @endif
                 </table>
             </div>
         </div>

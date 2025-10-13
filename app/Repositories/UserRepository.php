@@ -20,7 +20,7 @@ class UserRepository
 
         $perPage = $perPage ?? config('app.pagination.per_page', 10);
 
-        return $query->paginate($perPage);
+        return $query->paginate($perPage)->withQueryString();
     }
 
     public function insert(array $data): User

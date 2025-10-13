@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection as SupportCollection;
 
 class RoleRepository
@@ -14,7 +15,7 @@ class RoleRepository
         return Role::find($id);
     }
 
-    public function getAll(array $filters = [], ?int $limit = null): Collection
+    public function getAll(array $filters = [], ?int $perPage = null): LengthAwarePaginator
     {
         $query = Role::query();
 
@@ -22,11 +23,9 @@ class RoleRepository
             $query->where('name', 'like', "%{$filters['search']}%");
         }
 
-        $query = isset($limit)
-            ? $query->limit($limit)
-            : $query->limit(config()->get('app.pagination.per_page'));
+        $perPage = $perPage ?? config('app.pagination.per_page', 10);
 
-        return $query->get();
+        return $query->paginate($perPage)->withQueryString();
     }
 
     public function insert(array $data): ?Role
