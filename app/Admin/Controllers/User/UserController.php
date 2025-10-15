@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\editPasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\RoleService;
@@ -96,5 +97,16 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->with('success', 'User role updated successfully');
+    }
+
+    public function updatePassword(editPasswordRequest $request, User $user): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        $this->userService->changePassword($user, $validated);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User password updated successfully');
     }
 }

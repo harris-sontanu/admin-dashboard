@@ -43,6 +43,13 @@
                         </button>
                     </li>
                     <li>
+                        <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                            data-bs-target="#editPassword" data-id="{{ Auth::user()->id }}">
+                            <i class="bx bx-key me-2"></i>
+                            <span class="align-middle">Change Password</span>
+                        </button>
+                    </li>
+                    <li>
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
@@ -60,4 +67,5 @@
 
 @push('modals')
     @include('admin.user.edit')
+    @include('admin.user.change-password')
 @endpush
