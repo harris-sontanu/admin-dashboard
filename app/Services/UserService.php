@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -56,5 +57,12 @@ class UserService
         }
 
         return $user->refresh();
+    }
+
+    public function changePassword(User $user, array $data): User
+    {
+        return $this->userRepository->update($user, [
+            'password' => Hash::make($data['password']),
+        ]);
     }
 }
