@@ -21,7 +21,7 @@ class CategoryRepository
             });
         }
 
-        $perPage = $perPage ?? config('app.pagination.per_page', 10);;
+        $perPage = $perPage ?? config('app.pagination.per_page', 10);
 
         return $query->orderBy('created_at', 'desc')->paginate($perPage);
     }
